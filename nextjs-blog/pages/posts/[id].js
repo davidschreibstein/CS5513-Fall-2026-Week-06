@@ -24,11 +24,11 @@ export default function Post({ postData }) {
 
         {/* Quieter secondary text for the publish date */}
         <div className={utilStyles.lightText}>
-          {/* date comes from posts.json, e.g. '2026-09-14' */}
+          {/* date comes from posts.firebase, e.g. '2026-09-14' */}
           <Date dateString={postData.date} />
         </div>
 
-        {/* Optional tags array from JSON, joined into a comma-separated line */}
+        {/* Optional tags array from firebase, joined into a comma-separated line */}
         {postData.tags?.length > 0 && (
           <div className={utilStyles.lightText}>
             Tags: {postData.tags.join(', ')}
@@ -36,7 +36,7 @@ export default function Post({ postData }) {
         )}
 
         {/*
-          Renders HTML stored in contentHtml from posts.json.
+          Renders HTML stored in contentHtml from posts.firebase.
           dangerouslySetInnerHTML is required because React escapes HTML by default.
         */}
         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
@@ -46,7 +46,7 @@ export default function Post({ postData }) {
 }
 
 // Static Generation for dynamic routes:
-// tells Next.js which [id] values to pre-build (one page per JSON post).
+// tells Next.js which [id] values to pre-build (one page per firebase post).
 // Example return: [{ params: { id: '1' } }, { params: { id: '2' } }, ...]
 export async function getStaticPaths() {
   const paths = await getAllPostIds();
